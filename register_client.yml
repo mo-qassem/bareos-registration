@@ -14,7 +14,7 @@
       when: client_exists.stat.exists
 
     - name: Generate password
-      command: "echo $(date +%s | sha256sum | base64 | head -c 33)"
+      shell: "echo $(date +%s | sha256sum | base64 | head -c 33)"
       register: cpwd
 
     - name: Create Bareos client configuration
@@ -25,7 +25,7 @@
         group: bareos
         mode: "0644"
       vars:
-        generated-cpwd: "{{ cpwd.stdout }}"
+        cpwd: "{{ cpwd.stdout }}"
 
     - name: Create Bareos job configuration
       template:
