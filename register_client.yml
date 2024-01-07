@@ -1,7 +1,7 @@
 ---
 - name: Register new client to bareos service
   hosts: all
-  become: yes
+  become: true
   tasks:
     - name: Check if backup client already exists
       stat:
