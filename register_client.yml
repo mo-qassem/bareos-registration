@@ -17,13 +17,6 @@
       command: "echo $(date +%s | sha256sum | base64 | head -c 33)"
       register: cpwd
 
-    - name: Create backup client directory
-      file:
-        path: "/etc/bareos/bareos-dir.d/client/"
-        state: directory
-        owner: bareos
-        group: bareos
-
     - name: Create Bareos client configuration
       template:
         src: templates/client.conf.j2
