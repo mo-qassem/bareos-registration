@@ -30,7 +30,7 @@
         dest: "/etc/bareos/bareos-dir.d/client/{{ name }}.conf"
         owner: bareos
         group: bareos
-        mode: '0644'
+        mode: "0644"
 
     - name: Create Bareos job configuration
       template:
@@ -38,7 +38,7 @@
         dest: "/etc/bareos/bareos-dir.d/job/{{ name }}.conf"
         owner: bareos
         group: bareos
-        mode: '0644'
+        mode: "0644"
 
     - name: Create Bareos pool configurations
       template:
@@ -46,14 +46,15 @@
         dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_full.conf"
         owner: bareos
         group: bareos
-        mode: '0644'
+        mode: "0644"
 
-      - template:
+    - name: Create Bareos pool incremental configuration
+      template:
         src: templates/pool_incremental.conf.j2
         dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_incremental.conf"
         owner: bareos
         group: bareos
-        mode: '0644'
+        mode: "0644"
 
     - name: Create Bareos schedule configuration
       template:
@@ -61,7 +62,7 @@
         dest: "/etc/bareos/bareos-dir.d/schedule/{{ name }}_schedule.conf"
         owner: bareos
         group: bareos
-        mode: '0644'
+        mode: "0644"
 
     - name: Create Bareos fileset configuration
       template:
@@ -69,7 +70,7 @@
         dest: "/etc/bareos/bareos-dir.d/fileset/{{ name }}_path.conf"
         owner: bareos
         group: bareos
-        mode: '0644'
+        mode: "0644"
 
     - name: Set ownership of Bareos directory
       file:
