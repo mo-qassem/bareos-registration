@@ -1,0 +1,13 @@
+Job {
+	Name = {{ name }}
+	Type = Backup
+	Level = Full
+	Client = {{ name }}
+	Accurate = yes
+	FileSet = {{ name }}_path
+	Storage = {{ storage_location }}
+	Pool = {{ name }}_full
+	Schedule = {{ name }}_schedule
+	Messages = Standard
+	Write Bootstrap = "/backup/bootstrap_files/%j_%l_%i_%e.bsr"
+}

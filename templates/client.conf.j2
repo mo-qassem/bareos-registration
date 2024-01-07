@@ -1,0 +1,11 @@
+Client {
+	Name = {{ name }}
+	Address = {{ cip }}
+	Password = {{ cpwd.stdout }}
+	TLS Enable = yes
+	TLS Require = yes
+	TLS CA Certificate File = /etc/bareos/tls/dir_ca.crt
+	TLS Certificate = /etc/bareos/tls/dir.crt
+	TLS Key = /etc/bareos/tls/dir.key
+	TLS Allowed CN = "*.exaservers.com"
+}

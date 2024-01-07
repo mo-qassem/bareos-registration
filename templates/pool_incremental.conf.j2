@@ -1,0 +1,10 @@
+Pool {
+	Name = {{ name }}_incremental
+	Pool Type = Backup
+	Recycle = yes
+	AutoPrune = yes
+	Volume Retention = 10 days
+	Maximum Volume Bytes = 1G
+	Label Format = "{{ name }}-incremental-"
+	MaximumVolumes = 5
+}
