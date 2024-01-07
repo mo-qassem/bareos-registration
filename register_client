@@ -1,75 +1,79 @@
 ---
-- name: Check if backup client already exists
-  stat:
-    path: "/etc/bareos/bareos-dir.d/client/{{ name }}.conf"
-  register: client_exists
+- name: Create "exadmn" user, add the public key, and add it to sudoers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Check if backup client already exists
+      stat:
+        path: "/etc/bareos/bareos-dir.d/client/{{ name }}.conf"
+      register: client_exists
 
-- name: Exit if backup client already exists
-  fail:
-    msg: "A backup client with the same name already exists, please use another name."
-  when: client_exists.stat.exists
+    - name: Exit if backup client already exists
+      fail:
+        msg: "A backup client with the same name already exists, please use another name."
+      when: client_exists.stat.exists
 
-- name: Create backup client directory
-  file:
-    path: "/etc/bareos/bareos-dir.d/client/"
-    state: directory
-    owner: bareos
-    group: bareos
+    - name: Create backup client directory
+      file:
+        path: "/etc/bareos/bareos-dir.d/client/"
+        state: directory
+        owner: bareos
+        group: bareos
 
-- name: Generate password
-  command: "echo $(date +%s | sha256sum | base64 | head -c 33)"
-  register: cpwd
+    - name: Generate password
+      command: "echo $(date +%s | sha256sum | base64 | head -c 33)"
+      register: cpwd
 
-- name: Create Bareos client configuration
-  template:
-    src: templates/client.conf.j2
-    dest: "/etc/bareos/bareos-dir.d/client/{{ name }}.conf"
-    owner: bareos
-    group: bareos
-    mode: '0644'
+    - name: Create Bareos client configuration
+      template:
+        src: templates/client.conf.j2
+        dest: "/etc/bareos/bareos-dir.d/client/{{ name }}.conf"
+        owner: bareos
+        group: bareos
+        mode: '0644'
 
-- name: Create Bareos job configuration
-  template:
-    src: templates/job.conf.j2
-    dest: "/etc/bareos/bareos-dir.d/job/{{ name }}.conf"
-    owner: bareos
-    group: bareos
-    mode: '0644'
+    - name: Create Bareos job configuration
+      template:
+        src: templates/job.conf.j2
+        dest: "/etc/bareos/bareos-dir.d/job/{{ name }}.conf"
+        owner: bareos
+        group: bareos
+        mode: '0644'
 
-- name: Create Bareos pool configurations
-  template:
-    src: templates/pool_full.conf.j2
-    dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_full.conf"
-    owner: bareos
-    group: bareos
-    mode: '0644'
+    - name: Create Bareos pool configurations
+      template:
+        src: templates/pool_full.conf.j2
+        dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_full.conf"
+        owner: bareos
+        group: bareos
+        mode: '0644'
 
-  - template:
-    src: templates/pool_incremental.conf.j2
-    dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_incremental.conf"
-    owner: bareos
-    group: bareos
-    mode: '0644'
+      - template:
+        src: templates/pool_incremental.conf.j2
+        dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_incremental.conf"
+        owner: bareos
+        group: bareos
+        mode: '0644'
 
-- name: Create Bareos schedule configuration
-  template:
-    src: templates/schedule.conf.j2
-    dest: "/etc/bareos/bareos-dir.d/schedule/{{ name }}_schedule.conf"
-    owner: bareos
-    group: bareos
-    mode: '0644'
+    - name: Create Bareos schedule configuration
+      template:
+        src: templates/schedule.conf.j2
+        dest: "/etc/bareos/bareos-dir.d/schedule/{{ name }}_schedule.conf"
+        owner: bareos
+        group: bareos
+        mode: '0644'
 
-- name: Create Bareos fileset configuration
-  template:
-    src: templates/fileset_path.conf.j2
-    dest: "/etc/bareos/bareos-dir.d/fileset/{{ name }}_path.conf"
-    owner: bareos
-    group: bareos
-    mode: '0644'
+    - name: Create Bareos fileset configuration
+      template:
+        src: templates/fileset_path.conf.j2
+        dest: "/etc/bareos/bareos-dir.d/fileset/{{ name }}_path.conf"
+        owner: bareos
+        group: bareos
+        mode: '0644'
 
-- name: Set ownership of Bareos directory
-  file:
-    path: "/etc/bareos/"
-    owner: bareos
-    group: bareos
-    recurse: yes
+    - name: Set ownership of Bareos directory
+      file:
+        path: "/etc/bareos/"
+        owner: bareos
+        group: bareos
+        recurse: yes
