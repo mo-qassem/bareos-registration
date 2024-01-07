@@ -24,6 +24,8 @@
         owner: bareos
         group: bareos
         mode: "0644"
+      vars:
+        cpwd: "{{ cpwd.stdout }}"
 
     - name: Create Bareos job configuration
       template:
