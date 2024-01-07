@@ -13,16 +13,16 @@
         msg: "A backup client with the same name already exists, please use another name."
       when: client_exists.stat.exists
 
+    - name: Generate password
+      command: "echo $(date +%s | sha256sum | base64 | head -c 33)"
+      register: cpwd
+
     - name: Create backup client directory
       file:
         path: "/etc/bareos/bareos-dir.d/client/"
         state: directory
         owner: bareos
         group: bareos
-
-    - name: Generate password
-      command: "echo $(date +%s | sha256sum | base64 | head -c 33)"
-      register: cpwd
 
     - name: Create Bareos client configuration
       template:
