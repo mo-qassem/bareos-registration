@@ -5,7 +5,7 @@
   tasks:
     - name: Check if backup client already exists
       stat:
-        path: "/etc/bareos/bareos-dir.d/client/{{ name }}.conf"
+        path: "/etc/bareos/bareos-dir.d/client/{{ cname }}.conf"
       register: client_exists
 
     - name: Exit if backup client already exists
@@ -27,7 +27,7 @@
     - name: Create Bareos client configuration
       template:
         src: templates/client.conf.j2
-        dest: "/etc/bareos/bareos-dir.d/client/{{ name }}.conf"
+        dest: "/etc/bareos/bareos-dir.d/client/{{ cname }}.conf"
         owner: bareos
         group: bareos
         mode: "0644"
@@ -35,7 +35,7 @@
     - name: Create Bareos job configuration
       template:
         src: templates/job.conf.j2
-        dest: "/etc/bareos/bareos-dir.d/job/{{ name }}.conf"
+        dest: "/etc/bareos/bareos-dir.d/job/{{ cname }}.conf"
         owner: bareos
         group: bareos
         mode: "0644"
@@ -43,7 +43,7 @@
     - name: Create Bareos pool configurations
       template:
         src: templates/pool_full.conf.j2
-        dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_full.conf"
+        dest: "/etc/bareos/bareos-dir.d/pool/{{ cname }}_full.conf"
         owner: bareos
         group: bareos
         mode: "0644"
@@ -51,7 +51,7 @@
     - name: Create Bareos pool incremental configuration
       template:
         src: templates/pool_incremental.conf.j2
-        dest: "/etc/bareos/bareos-dir.d/pool/{{ name }}_incremental.conf"
+        dest: "/etc/bareos/bareos-dir.d/pool/{{ cname }}_incremental.conf"
         owner: bareos
         group: bareos
         mode: "0644"
@@ -59,7 +59,7 @@
     - name: Create Bareos schedule configuration
       template:
         src: templates/schedule.conf.j2
-        dest: "/etc/bareos/bareos-dir.d/schedule/{{ name }}_schedule.conf"
+        dest: "/etc/bareos/bareos-dir.d/schedule/{{ cname }}_schedule.conf"
         owner: bareos
         group: bareos
         mode: "0644"
@@ -67,7 +67,7 @@
     - name: Create Bareos fileset configuration
       template:
         src: templates/fileset_path.conf.j2
-        dest: "/etc/bareos/bareos-dir.d/fileset/{{ name }}_path.conf"
+        dest: "/etc/bareos/bareos-dir.d/fileset/{{ cname }}_path.conf"
         owner: bareos
         group: bareos
         mode: "0644"
