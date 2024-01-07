@@ -1,7 +1,7 @@
 Client {
 	Name = {{ cname }}
 	Address = {{ cip }}
-	Password = {{ cpwd }}
+	Password = {{ cpwd.stdout }}
 	TLS Enable = yes
 	TLS Require = yes
 	TLS CA Certificate File = /etc/bareos/tls/dir_ca.crt
