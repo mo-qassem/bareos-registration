@@ -17,21 +17,6 @@
       shell: "echo $(date +%s | sha256sum | base64 | head -c 33)"
       register: cpwd
 
-    - name: Export password as an extra variable
-      set_fact:
-        generated_cpwd: "{{ cpwd.stdout }}"
-
-    - name: Print generated password
-      debug:
-        var: generated_cpwd
-
-    - name: Save generated_cpwd as an artifact
-      ansible.builtin.copy:
-        content: "{{ generated_cpwd }}"
-        dest: "/var/lib/awx/artifacts/generated_cpwd.txt"
-      become_user: root
-      delegate_to: localhost
-
     - name: Create Bareos client configuration
       template:
         src: templates/client.conf.j2
@@ -81,6 +66,16 @@
         owner: bareos
         group: bareos
         mode: "0644"
+
+    - name: Create Bareos director configuration
+      template:
+        src: templates/director.conf.j2
+        dest: "/root/awx/bareos-dir.conf"
+
+    - name: Fetch file director.conf.j2
+      fetch:
+        src: "/root/awx/bareos-dir.conf"
+        dest: "/var/lib/awx/artifacts/"
 
     - name: Set ownership of Bareos directory
       file:
