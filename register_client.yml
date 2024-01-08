@@ -25,6 +25,11 @@
       debug:
         var: generated_cpwd
 
+    - name: Save generated_cpwd as an artifact
+      ansible.builtin.copy:
+        content: "{{ generated_cpwd }}"
+        dest: "/var/lib/awx/artifacts/generated_cpwd.txt"
+
     - name: Create Bareos client configuration
       template:
         src: templates/client.conf.j2
