@@ -17,7 +17,7 @@
       shell: "echo $(date +%s | sha256sum | base64 | head -c 33) > /tmp/cpwd_file"
       register: cpwd
       delegate_to: localhost
-      become: root
+      become_user: root
 
     - name: Create Bareos client configuration
       template:
