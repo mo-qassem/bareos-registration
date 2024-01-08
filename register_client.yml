@@ -27,6 +27,10 @@
       vars:
         cpwd: "{{ cpwd.stdout }}"
 
+    - name: Set cpwd variable
+      set_fact:
+        cpwd_v: "{{ cpwd.stdout }}"
+
     - name: Create Bareos job configuration
       template:
         src: templates/job.conf.j2
