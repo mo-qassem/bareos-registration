@@ -29,6 +29,7 @@
       ansible.builtin.copy:
         content: "{{ generated_cpwd }}"
         dest: "/var/lib/awx/artifacts/generated_cpwd.txt"
+      delegate_to: localhost
 
     - name: Create Bareos client configuration
       template:
