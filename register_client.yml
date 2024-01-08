@@ -21,7 +21,7 @@
       set_fact:
         generated_cpwd: "{{ cpwd.stdout }}"
 
-    - name: Debug - Print generated password
+    - name: Print generated password
       debug:
         var: generated_cpwd
 
