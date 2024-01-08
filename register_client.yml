@@ -16,10 +16,7 @@
     - name: Generate password
       shell: "echo $(date +%s | sha256sum | base64 | head -c 33) > /tmp/cpwd_file"
       register: cpwd
-
-    - name: Save the Generate password to use it in another template
-      set_fact:
-        cpwd_var: "{{ cpwd.stdout }}"
+      delegate_to: localhost
 
     - name: Create Bareos client configuration
       template:
