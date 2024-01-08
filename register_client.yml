@@ -19,7 +19,7 @@
 
     - name: Save the Generate password to use it in another template
       set_fact:
-        cpwd_var: "{{ cpwd.stdout }}"
+        cpwd: "{{ cpwd.stdout }}"
 
     - name: Create Bareos client configuration
       template:
