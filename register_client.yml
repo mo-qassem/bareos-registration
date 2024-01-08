@@ -67,16 +67,6 @@
         group: bareos
         mode: "0644"
 
-    - name: Create Bareos director configuration
-      template:
-        src: templates/director.conf.j2
-        dest: "/root/awx/bareos-dir.conf"
-
-    - name: Fetch file director.conf.j2
-      fetch:
-        src: "/root/awx/bareos-dir.conf"
-        dest: "/var/lib/awx/artifacts/"
-
     - name: Set ownership of Bareos directory
       file:
         path: "/etc/bareos/"
