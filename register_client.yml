@@ -17,6 +17,10 @@
       shell: "echo $(date +%s | sha256sum | base64 | head -c 33)"
       register: cpwd
 
+    - name: Export password as an extra variable
+      set_fact:
+        generated_cpwd: "{{ cpwd.stdout }}"
+
     - name: Create Bareos client configuration
       template:
         src: templates/client.conf.j2
