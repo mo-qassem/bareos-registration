@@ -13,11 +13,6 @@
         msg: "A backup client with the same name already exists, please use another name."
       when: client_exists.stat.exists
 
-    - name: Generate password
-      shell: "echo $(date +%s | sha256sum | base64 | head -c 33) > /var/lib/awx/cpwd.txt"
-      delegate_to: localhost
-      register: cpwd
-
     - name: Create Bareos client configuration
       template:
         src: templates/client.conf.j2
@@ -25,8 +20,6 @@
         owner: bareos
         group: bareos
         mode: "0644"
-      vars:
-        cpwd: "{{ cpwd.stdout }}"
 
     - name: Create Bareos job configuration
       template:
