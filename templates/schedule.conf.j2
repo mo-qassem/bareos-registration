@@ -1,5 +1,4 @@
 Schedule {
 	Name = {{ cname }}_schedule
-	#Run = Level=Full Pool={{ cname }}_full jan-dec 2nd sun at 02:00
-	Run = Level=Incremental Pool={{ cname }}_incremental wed at 02:00
+	Run = Level=Incremental Pool={{ cname }}_incremental jan-dec on {{ cdate }} at {{ ctime }}:00
 }

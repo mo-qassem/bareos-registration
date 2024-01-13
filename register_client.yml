@@ -45,13 +45,23 @@
         group: bareos
         mode: "0644"
 
-    - name: Create Bareos schedule configuration
+    - name: Create Bareos schedule configuration for incremental backup
       template:
         src: templates/schedule.conf.j2
         dest: "/etc/bareos/bareos-dir.d/schedule/{{ cname }}_schedule.conf"
         owner: bareos
         group: bareos
         mode: "0644"
+      when: cbackup_level == "incremental"
+
+    - name: Create Bareos schedule configuration for full backup
+      template:
+        src: templates/schedule-full.conf.j2
+        dest: "/etc/bareos/bareos-dir.d/schedule/{{ cname }}_schedule.conf"
+        owner: bareos
+        group: bareos
+        mode: "0644"
+      when: cbackup_level == "full"
 
     - name: Create Bareos fileset configuration
       template:
